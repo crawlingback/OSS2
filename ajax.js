@@ -14,6 +14,16 @@ window.onload = function () {
     getcourses();
 };
 
+isDebug = true;
+
+function logger(data) {
+    if (isDebug) {
+        console.log(data);
+    }
+}
+
+function getData() {}
+
 function getcourses() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "courses.json");
@@ -23,6 +33,7 @@ function getcourses() {
     xhr.onload = () => {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.response);
+            logger(res);
             contents.innerHTML = makeList(res);
         } else {
             console.log(xhr.status, xhr.statusText);
