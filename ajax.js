@@ -94,17 +94,40 @@ function makeList(data) {
     logger(data);
     logger(data[0]);
     logger(data[1]);
-    for (dt in data) {
-        logger(dt.cname);
+
+    for (key in data) {
+        logger(data[key].cname);
+        logger(key.cname);
+        logger(key);
         str +=
-            "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
+            "<li> " +
+            data[key].cname +
+            "[" +
+            data[key].credit +
+            "] (" +
+            data[key].code +
+            ")</li>";
         str +=
             "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
-            dt.id +
+            data[key].id +
             "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
         str +=
-            "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
+            "<button onclick='deleteData(\"" +
+            data[key].id +
+            "\")'>Delete</button>";
     }
+
+    // for (dt in data) {
+    //     logger(dt.cname);
+    //     str +=
+    //         "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
+    //     str +=
+    //         "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
+    //         dt.id +
+    //         "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
+    //     str +=
+    //         "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
+    // }
     // data.forEach((dt) => {
     //     logger(dt.cname);
     //     str +=
