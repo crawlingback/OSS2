@@ -92,7 +92,7 @@ function postData() {
 function makeList(data) {
     let str = "<ul>";
     logger(data);
-    data.forEach((dt) => {
+    for (dt in data) {
         logger(dt.cname);
         str +=
             "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
@@ -102,7 +102,18 @@ function makeList(data) {
             "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
         str +=
             "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
-    });
+    }
+    // data.forEach((dt) => {
+    //     logger(dt.cname);
+    //     str +=
+    //         "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
+    //     str +=
+    //         "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
+    //         dt.id +
+    //         "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
+    //     str +=
+    //         "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
+    // });
     str += "</ul>";
 
     return str;
