@@ -57,7 +57,7 @@
                 let code = document.getElementById("code");
 
                 const xhr = new XMLHttpRequest();
-                xhr.open("GET", "http://localhost:3001/courses");
+                xhr.open("GET", "courses.json");
                 xhr.setRequestHeader("content-type", "application/json");
                 xhr.send();
 
@@ -70,7 +70,7 @@
                             }
                         }
 
-                        xhr.open("POST", "http://localhost:3001/courses");
+                        xhr.open("POST", "courses.json");
                         xhr.setRequestHeader(
                             "content-type",
                             "application/json; charset=UTF-8"
@@ -131,7 +131,7 @@
                 let credit = form.querySelector(".upd_credit").value;
                 let code = form.querySelector(".upd_code").value;
                 const xhr = new XMLHttpRequest();
-                xhr.open("PUT", "http://localhost:3001/courses/" + id);
+                xhr.open("PUT", "courses.json/" + id);
                 xhr.setRequestHeader(
                     "content-type",
                     "application/json; charset=UTF-8"
@@ -157,7 +157,7 @@
 
             function deleteData(id) {
                 const xhr = new XMLHttpRequest();
-                xhr.open("DELETE", "http://localhost:3001/courses/" + id);
+                xhr.open("DELETE", "courses.json/" + id);
                 xhr.setRequestHeader(
                     "content-type",
                     "application/json; charset=UTF-8"
