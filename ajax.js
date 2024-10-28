@@ -91,15 +91,14 @@ function postData() {
 
 function makeList(data) {
     let str = "<ul>";
-    logger(data);
-    logger(data[0]);
-    logger(data[1]);
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data[0]));
+    console.log(JSON.stringify(data[1]));
 
     for (key in data) {
-        logger(data[key].credit);
-        logger(data[key].cname);
-        logger(key.cname);
-        logger(key);
+        console.log(JSON.stringify(data[key].cname));
+        console.log(JSON.stringify(key.cname));
+        console.log(JSON.stringify(key));
         str +=
             "<li> " +
             data[key].cname +
