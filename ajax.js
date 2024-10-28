@@ -33,7 +33,6 @@ function getcourses() {
     xhr.onload = () => {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.response);
-            logger(res);
             contents.innerHTML = makeList(res);
         } else {
             console.log(xhr.status, xhr.statusText);
@@ -92,7 +91,9 @@ function postData() {
 
 function makeList(data) {
     let str = "<ul>";
+    logger(data);
     for (key in data) {
+        logger(data[key].cname);
         str +=
             "<li> " +
             data[key].cname +
