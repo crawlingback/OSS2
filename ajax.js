@@ -92,25 +92,17 @@ function postData() {
 function makeList(data) {
     let str = "<ul>";
     logger(data);
-    for (key in data) {
-        logger(data[key].cname);
+    data.foreach((dt) => {
+        logger(dt.cname);
         str +=
-            "<li> " +
-            data[key].cname +
-            "[" +
-            data[key].credit +
-            "] (" +
-            data[key].code +
-            ")</li>";
+            "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
         str +=
             "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
-            data[key].id +
+            dt.id +
             "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
         str +=
-            "<button onclick='deleteData(\"" +
-            data[key].id +
-            "\")'>Delete</button>";
-    }
+            "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
+    });
     str += "</ul>";
 
     return str;
