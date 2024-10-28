@@ -96,6 +96,7 @@ function makeList(data) {
     logger(data[1]);
 
     for (key in data) {
+        logger(data[key].credit);
         logger(data[key].cname);
         logger(key.cname);
         logger(key);
