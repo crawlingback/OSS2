@@ -90,7 +90,7 @@ function postData() {
 }
 
 function makeList(data) {
-    data = data[courses];
+    data = data["courses"];
     let str = "<ul>";
     console.log(JSON.stringify(data));
     console.log(JSON.stringify(data[0]));
