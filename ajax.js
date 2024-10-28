@@ -92,7 +92,7 @@ function postData() {
 function makeList(data) {
     let str = "<ul>";
     logger(data);
-    data.foreach((dt) => {
+    data.forEach((dt) => {
         logger(dt.cname);
         str +=
             "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
