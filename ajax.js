@@ -95,6 +95,7 @@ function makeList(data) {
     console.log(JSON.stringify(data));
     console.log(JSON.stringify(data[0]));
     console.log(JSON.stringify(data[1]));
+    console.log(JSON.stringify(data[2]));
 
     for (key in data) {
         console.log(JSON.stringify(data[key].cname));
