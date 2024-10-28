@@ -92,6 +92,7 @@ function postData() {
 function makeList(data) {
     let str = "<ul>";
     logger(data);
+    logger(data[0]);
     for (dt in data) {
         logger(dt.cname);
         str +=
