@@ -6,31 +6,25 @@
             cname="viewport"
             content="width=device-width, initial-scale=1.0"
         />
-        <title>Document</title>
-        <style>
-            .content {
-                width: 80%;
-                float: left;
-            }
-
-            div {
-                padding: 10px;
-            }
-        </style>
+        <title>Comments</title>
+        <link rel="stylesheet" href="ajax.css" />
         <script src="ajax.js"></script>
     </head>
 
     <body>
-        <button id="btnStu">Bring student data</button>
-        <div>
-            <input type="text" id="cname" size="10" placeholder="cname" />
-            <input type="text" id="credit" size="5" placeholder="credit" />
-            <input type="text" id="code" size="10" placeholder="code" />
-            <button id="btnAdd" type="button">Add student data</button>
+        <button id="btnStu">Bring comments</button>
+        <div class="inputs">
+            <p>
+                <input type="text" id="userID" size="10" placeholder="userID" />
+            </p>
+            <p>
+                <input type="text" id="title" size="30" placeholder="title" />
+            </p>
+            <p>
+                <input type="text" id="body" size="50" placeholder="body" />
+            </p>
+            <button id="btnAdd" type="button">Add comment</button>
         </div>
-        <div
-            id="contents"
-            style="height: 200px; background-color: lightgoldenrodyellow"
-        ></div>
+        <div id="contents"></div>
     </body>
 </html>

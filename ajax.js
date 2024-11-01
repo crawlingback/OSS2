@@ -1,17 +1,20 @@
+const jsonData = "http://localhost:3001/data";
+const jsonLastID = "http://localhost:3001/lastID";
+
 window.onload = function () {
     //event.preventDefault();
-    //getcourses();
+    //getmy_data();
     let btnStu = document.getElementById("btnStu");
     let btnAdd = document.getElementById("btnAdd");
     btnStu.addEventListener("click", function (event) {
         //event.preventDefault();
-        getcourses();
+        getmy_data();
     });
     btnAdd.addEventListener("click", function (event) {
         event.preventDefault();
         postData();
     });
-    getcourses();
+    getmy_data();
 };
 
 isDebug = true;
@@ -24,9 +27,9 @@ function logger(data) {
 
 function getData() {}
 
-function getcourses() {
+function getmy_data() {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "courses.json");
+    xhr.open("GET", jsonData);
     xhr.setRequestHeader("content-type", "application/json");
     xhr.send();
 
@@ -41,13 +44,13 @@ function getcourses() {
 }
 
 function postData() {
-    var cid = 1;
-    let cname = document.getElementById("cname");
-    let credit = document.getElementById("credit");
-    let code = document.getElementById("code");
+    var cid = 0;
+    let userID = document.getElementById("userID");
+    let title = document.getElementById("title");
+    let body = document.getElementById("body");
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "courses.json");
+    xhr.open("GET", jsonData);
     xhr.setRequestHeader("content-type", "application/json");
     xhr.send();
 
@@ -55,30 +58,31 @@ function postData() {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.response);
             for (key in res) {
-                if (res[key].id >= cid) {
-                    cid = res[key].id + 1;
+                var resID = parseInt(res[key].id);
+                if (resID >= cid) {
+                    cid = resID + 1;
                 }
             }
 
-            xhr.open("POST", "courses.json");
+            xhr.open("POST", jsonData);
             xhr.setRequestHeader(
                 "content-type",
                 "application/json; charset=UTF-8"
             );
             const data = {
-                id: cid,
-                cname: cname.value,
-                credit: credit.value,
-                code: code.value,
+                id: "" + cid,
+                userID: userID.value,
+                title: title.value,
+                body: body.value,
             };
             xhr.send(JSON.stringify(data));
 
             xhr.onload = () => {
                 if (xhr.status == 201) {
-                    cname.value = "";
-                    credit.value = "";
-                    const res = JSON.parse(xhr.response);
-                    getcourses();
+                    userID.value = "";
+                    title.value = "";
+                    body.value = "";
+                    getmy_data();
                 } else {
                     console.log(xhr.status, xhr.statusText);
                 }
@@ -90,50 +94,35 @@ function postData() {
 }
 
 function makeList(data) {
-    data = data["courses"];
+    // data = data["data"];
     let str = "<ul>";
 
     for (key in data) {
+        str += "<li>";
+        str += "<p class='c_writer'>Writer: " + data[key].userID + "</p>";
+        str += "<p class='c_title'>" + data[key].title + "</p>";
+        str += "<p class='c_body'>" + data[key].body + "</p>";
+        str += "</li>";
+        str += "<div class='updates'>";
         str +=
-            "<li> " +
-            data[key].cname +
-            "[" +
-            data[key].credit +
-            "] (" +
-            data[key].code +
-            ")</li>";
-        str +=
-            "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
+            "<input type='hidden' name='upd_id' class='upd_id' value='" +
             data[key].id +
-            "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
+            "'>";
         str +=
-            "<button onclick='deleteData(\"" +
+            "<input type='hidden' name='upd_uid' class='upd_uid' value='" +
+            data[key].userID +
+            "'>";
+        str +=
+            "<input type='text' name='upd_title' class='upd_title' size='30' placeholder='title' />";
+        str +=
+            "<input type='text' name='upd_body' class='upd_body' size='50' placeholder='body' />";
+        str += "<button onclick='updateData(this)'>Modify</button>";
+        str +=
+            "<p><button onclick='deleteData(\"" +
             data[key].id +
-            "\")'>Delete</button>";
+            "\")'>Delete</button></p>";
+        str += "</div>";
     }
-
-    // for (dt in data) {
-    //     logger(dt.cname);
-    //     str +=
-    //         "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
-    //     str +=
-    //         "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
-    //         dt.id +
-    //         "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
-    //     str +=
-    //         "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
-    // }
-    // data.forEach((dt) => {
-    //     logger(dt.cname);
-    //     str +=
-    //         "<li> " + dt.cname + "[" + dt.credit + "] (" + dt.code + ")</li>";
-    //     str +=
-    //         "<form action='' method='get'><input type='hidden' name='upd_id' class='upd_id'/ value='" +
-    //         dt.id +
-    //         "'><input type='text' name='upd_cname' class='upd_cname' size='10' placeholder='cname'/><input type='text' name='upd_credit' class='upd_credit' size='5' placeholder='credit'/><input type='text' name='upd_code' class='upd_code' size='10' placeholder='code'/><button onclick='updateData(this)'>Modify</button></form>";
-    //     str +=
-    //         "<button onclick='deleteData(\"" + dt.id + "\")'>Delete</button>";
-    // });
     str += "</ul>";
 
     return str;
@@ -142,17 +131,17 @@ function makeList(data) {
 function updateData(obj) {
     let form = obj.parentNode;
     let id = form.querySelector(".upd_id").value;
-    let cname = form.querySelector(".upd_cname").value;
-    let credit = form.querySelector(".upd_credit").value;
-    let code = form.querySelector(".upd_code").value;
+    let uid = form.querySelector(".upd_uid").value;
+    let title = form.querySelector(".upd_title").value;
+    let body = form.querySelector(".upd_body").value;
     const xhr = new XMLHttpRequest();
-    xhr.open("PUT", "courses.json/" + id);
+    xhr.open("PUT", jsonData + "/" + id);
     xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
     const data = {
         id: id,
-        cname: cname,
-        credit: credit,
-        code: code,
+        userID: uid,
+        title: title,
+        body: body,
     };
     xhr.send(JSON.stringify(data));
 
@@ -160,7 +149,7 @@ function updateData(obj) {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.response);
             console.log(res);
-            getcourses();
+            getmy_data();
         } else {
             console.log(xhr.status, xhr.statusText);
         }
@@ -169,9 +158,9 @@ function updateData(obj) {
 
 function deleteData(id) {
     const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "courses.json/" + id);
+    xhr.open("DELETE", jsonData + "/" + id);
     xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
-    const data = { cname: cname.value, credit: credit.value };
+    const data = { userID: userID.value, title: title.value };
     // xhr.send(JSON.stringify(data));
     xhr.send(JSON.stringify());
 
@@ -179,7 +168,7 @@ function deleteData(id) {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.response);
             console.log(res);
-            getcourses();
+            getmy_data();
         } else {
             console.log(xhr.status, xhr.statusText);
         }
